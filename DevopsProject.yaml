@@ -1,0 +1,35 @@
+---
+- hosts: app
+  become: true
+  tasks:
+  - name: Install git 
+    package:
+     name: git
+     state: present
+  - name: Run update
+    apt:
+     update_cache: true
+  - name: Install JDK
+    package: 
+     name: openjdk-8-jdk
+     state: present
+  - name: Copy Chromedriver
+    copy:
+     src: /root/chromedriver
+     dest: /home/ubuntu/
+  - name: Install chrome browser
+    package:
+     name: chromium-browser
+     state: present
+  - name: install chrome driver
+    package:
+     name: chromium-chromedriver
+     state: present
+  - name: copy agent.jar file
+    copy:
+     src: /root/agent.jar
+     dest: /home/ubuntu/
+  - name: Run update
+    apt: 
+     update_cache: yes
+
